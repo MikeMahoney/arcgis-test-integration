@@ -1,5 +1,8 @@
+@import 'https://js.arcgis.com/4.26/@arcgis/core/assets/esri/themes/light/main.css';
+
 .App {
   text-align: center;
+  display: flex;
 }
 
 .App-logo {

@@ -7,14 +7,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 function App() {
   return (
     <BrowserRouter>
-      <div className='App'>
-        <Theme>
+      <Theme>
+        <div className='App'>
           <Header />
           <Routes>
             <Route path='/' element={<Main />} />
           </Routes>
-        </Theme>
-      </div>
+        </div>
+      </Theme>
     </BrowserRouter>
   )
 }

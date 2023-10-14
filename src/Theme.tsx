@@ -15,9 +15,11 @@ export const defaultTheme = {
     purple: '#c7b7ff',
     lightPurple: '#f9f7ff',
     yellow: '#fed55c',
-    lightYellow: '#fdf9ef'
+    lightYellow: '#fdf9ef',
+    oliveGreen: '#556B2F',
+    darkSeaGreen: '#8FBC8F'
   },
-  fontSizes: {
+  fontSize: {
     title: '28px',
     subTitle: '18px',
     default: '14px'
