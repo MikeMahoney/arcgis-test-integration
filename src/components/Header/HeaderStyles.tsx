@@ -17,3 +17,7 @@ export const HeaderTitle = styled.div`
   padding: 5px;
   gap: 10px;
 `
+
+export const Navigation = styled.nav`
+  border-top: 1px solid white;
+`

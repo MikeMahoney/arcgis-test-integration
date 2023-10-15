@@ -1,33 +1,53 @@
 import { SubTitleText, TitleText } from 'sharedComponents/TextStyles/TextStyles'
-import { HeaderTitle, HeaderWrapper } from './HeaderStyles'
+import { HeaderTitle, HeaderWrapper, Navigation } from './HeaderStyles'
 import Collapsible from 'sharedComponents/Collapsible/Collapsible'
 import NavList from 'sharedComponents/NavList/NavList'
 import { NavListItem } from 'sharedComponents/NavList/NavListStyles'
+import { useStoreActions, useStoreState } from 'easy-peasy'
+import { Animals, TAnimal, TAnimalCategory } from 'data/animalData'
 
 interface IHeader {}
 
 const Header: React.FC<IHeader> = () => {
+  const selectedCategory = useStoreState((state: any) => state.selectedCategory)
+  const selectedAnimal = useStoreState((state: any) => state.selectedAnimal)
+
+  const setSelectedAnimal = useStoreActions(
+    (actions: any) => actions.setSelectedAnimal
+  )
+  const setSelectedCategory = useStoreActions(
+    (actions: any) => actions.setSelectedCategory
+  )
+
   return (
     <HeaderWrapper>
       <HeaderTitle>
         <TitleText>Scottish Wildlife Locater</TitleText>
       </HeaderTitle>
-      <div>
-        <Collapsible title={'Mammals'} active>
-          <NavList>
-            <NavListItem>
-              <SubTitleText>{'Wildcat'}</SubTitleText>
-            </NavListItem>
-          </NavList>
-        </Collapsible>
-        <Collapsible title={'Birds'}>
-          <NavList>
-            <NavListItem>
-              <SubTitleText>{'Puffin'}</SubTitleText>
-            </NavListItem>
-          </NavList>
-        </Collapsible>
-      </div>
+      <Navigation>
+        {Animals.map((category: TAnimalCategory, index: number) => (
+          <Collapsible
+            key={index}
+            title={category.name}
+            active={selectedCategory === category.id}
+          >
+            <NavList>
+              {category.animals.map((animal: TAnimal, index: number) => (
+                <NavListItem
+                  key={index}
+                  selected={selectedAnimal === animal.id}
+                  onClick={() => {
+                    setSelectedAnimal(animal.id)
+                    setSelectedCategory(category.id)
+                  }}
+                >
+                  <SubTitleText>{animal.name}</SubTitleText>
+                </NavListItem>
+              ))}
+            </NavList>
+          </Collapsible>
+        ))}
+      </Navigation>
     </HeaderWrapper>
   )
 }
