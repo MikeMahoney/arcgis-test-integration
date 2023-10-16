@@ -7,7 +7,13 @@ export type TAnimalCategory = {
 export type TAnimal = {
   id: string
   name: string
-  coordinates: Array<number>
+  locations: Array<TAnimalLocation>
+}
+
+export type TAnimalLocation = {
+  id: string
+  name: string
+  rings: Array<Array<number>>
 }
 
 export const Animals: Array<TAnimalCategory> = [
@@ -16,9 +22,35 @@ export const Animals: Array<TAnimalCategory> = [
     name: 'Mammals',
     animals: [
       {
+        id: 'BEAVER',
+        name: 'Beaver',
+        locations: [
+          {
+            id: 'CAIRNGORM',
+            name: 'Cairngorm',
+            rings: []
+          }
+        ]
+      },
+      {
         id: 'WILDCAT',
         name: 'Wildcat',
-        coordinates: []
+        locations: [
+          {
+            id: 'CAIRNGORM',
+            name: 'Cairngorm',
+            rings: [
+              [-4, 57.2],
+              [-4, 57.28],
+              [-3.4, 57.405],
+              [-3.0, 57.3],
+              [-2.9, 57],
+              [-3.0, 56.8],
+              [-4.0, 56.7],
+              [-4.4, 57]
+            ]
+          }
+        ]
       }
     ]
   },
@@ -29,7 +61,7 @@ export const Animals: Array<TAnimalCategory> = [
       {
         id: 'PUFFIN',
         name: 'Puffin',
-        coordinates: []
+        locations: []
       }
     ]
   }

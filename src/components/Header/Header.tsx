@@ -9,8 +9,12 @@ import { Animals, TAnimal, TAnimalCategory } from 'data/animalData'
 interface IHeader {}
 
 const Header: React.FC<IHeader> = () => {
-  const selectedCategory = useStoreState((state: any) => state.selectedCategory)
-  const selectedAnimal = useStoreState((state: any) => state.selectedAnimal)
+  const selectedCategory: string = useStoreState(
+    (state: any) => state.selectedCategory
+  )
+  const selectedAnimal: TAnimal = useStoreState(
+    (state: any) => state.selectedAnimal
+  )
 
   const setSelectedAnimal = useStoreActions(
     (actions: any) => actions.setSelectedAnimal
@@ -35,9 +39,9 @@ const Header: React.FC<IHeader> = () => {
               {category.animals.map((animal: TAnimal, index: number) => (
                 <NavListItem
                   key={index}
-                  selected={selectedAnimal === animal.id}
+                  selected={selectedAnimal.id === animal.id}
                   onClick={() => {
-                    setSelectedAnimal(animal.id)
+                    setSelectedAnimal(animal)
                     setSelectedCategory(category.id)
                   }}
                 >
