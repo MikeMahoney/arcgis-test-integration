@@ -1,6 +1,7 @@
 import {
   MapViewerContainer,
   MapViewerInfo,
+  MapViewerInfoButton,
   MapViewerWrapper
 } from './MapViewerStyles'
 import esriConfig from '@arcgis/core/config.js'
@@ -12,6 +13,8 @@ import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer'
 import { useEffect, useState } from 'react'
 import { useStoreState } from 'easy-peasy'
 import { TAnimal, TAnimalLocation } from 'data/animalData'
+import { InfoIcon } from 'sharedComponents/Icons/InfoIcon/InfoIcon'
+import { TitleText, SubTitleText } from 'sharedComponents/TextStyles/TextStyles'
 
 esriConfig.apiKey = API_KEY
 
@@ -40,37 +43,44 @@ const MapViewer: React.FC<IMapViewer> = () => {
     map.add(graphicsLayer)
 
     selectedAnimal.locations.forEach((location: TAnimalLocation) => {
-      const polygon: any = {
-        type: 'polygon',
-        rings: location.rings
-      }
-
-      const simpleFillSymbol = {
-        type: 'simple-fill',
-        color: [227, 139, 79, 0.5],
-        outline: {
-          color: [255, 255, 255],
-          width: 1
+      if (location.rings) {
+        const polygon: any = {
+          type: 'polygon',
+          rings: location.rings
         }
+        const simpleFillSymbol = {
+          type: 'simple-fill',
+          color: [227, 139, 79, 0.5],
+          outline: {
+            color: [255, 255, 255],
+            width: 1
+          }
+        }
+        const polygonGraphic = new Graphic({
+          geometry: polygon,
+          symbol: simpleFillSymbol
+        })
+        graphicsLayer.add(polygonGraphic)
       }
-
-      const polygonGraphic = new Graphic({
-        geometry: polygon,
-        symbol: simpleFillSymbol
-      })
-      graphicsLayer.add(polygonGraphic)
     })
   }, [selectedAnimal])
 
   return (
     <MapViewerWrapper>
       <MapViewerContainer id='viewDiv' />
-      <MapViewerInfo
-        expanded={infoExpanded}
+      <MapViewerInfoButton
         onClick={() => {
           setInfoExpanded(!infoExpanded)
         }}
-      ></MapViewerInfo>
+      >
+        <InfoIcon />
+      </MapViewerInfoButton>
+      <MapViewerInfo
+        expanded={infoExpanded}
+      >
+        <TitleText>{selectedAnimal.name}</TitleText>
+        <SubTitleText>{selectedAnimal.description}</SubTitleText>
+      </MapViewerInfo>
     </MapViewerWrapper>
   )
 }

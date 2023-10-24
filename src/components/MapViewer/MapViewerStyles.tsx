@@ -1,3 +1,4 @@
+import { TitleText } from 'sharedComponents/TextStyles/TextStyles'
 import styled from 'styled-components'
 
 export const MapViewerWrapper = styled.section`
@@ -11,12 +12,30 @@ export const MapViewerContainer = styled.div`
   width: 80vw;
 `
 export const MapViewerInfo = styled.div<{ expanded?: boolean }>`
+  display: ${props => props.expanded ? 'flex' : 'none'};
+  flex-direction: column;
+  gap: 20px;
+  position: absolute;
+  padding: 20px;
+  top: 60px;
+  right: 5px;
+  width: 90%;
+  background-color: white;
+  border-radius: 5px;
+  ${TitleText} {
+    color: ${(props) => props.theme.colors.oliveGreen};
+  }
+`
+
+export const MapViewerInfoButton = styled.div`
   position: absolute;
   top: 5px;
   right: 5px;
-  height: ${(props) => (props.expanded ? '50%' : '100px')};
-  width: ${(props) => (props.expanded ? '90%' : '100px')};
-  background-color: white;
+  svg {
+    path:last-child{
+      fill: ${(props) => props.theme.colors.oliveGreen};
+    }
+  }
   &:hover {
     cursor: pointer;
   }
